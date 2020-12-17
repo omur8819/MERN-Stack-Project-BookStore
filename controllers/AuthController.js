@@ -1,6 +1,8 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const { check, validationResult} = require("express-validator");
+var jwt = require('jsonwebtoken');
+require("dotenv").config();
 
 exports.authRegister = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -34,8 +36,45 @@ exports.authRegister = async (req, res) => {
   res.send("Register Completed.");
 };
 
-exports.authLogin = (req, res) => {
-  // TODO: Auth.
-  // TODO: Login func.
-  res.send("Login Completed");
+exports.authLogin = async (req, res) => {
+  const { email, password } = req.body;
+
+  const validationErr = validationResult(req);
+
+  //Field validation
+  if(validationErr.errors.length > 0) {
+    return res
+      .status(400)
+      .json({ errors: validationErr.array() });
+  }
+  //User exist check
+  const userData = await User.findOne({ email: email });
+  if (!userData) {
+    return res
+      .status(400)
+      .json({ errors: [{ message: "User doesn't exists!!" }] });
+  }
+
+  //Password compare
+  const isPasswordMatch = await bcrypt.compare(password, userData.password)
+
+  if(!isPasswordMatch) {
+    return res
+      .status(400)
+      .json({ errors: [{ message: "Invalid credentials" }] });
+  }
+  //JSON WEB TOKEN JWT
+
+  jwt.sign(
+    { userData }, 
+    process.env.JWT_SECRET_KEY, 
+    { expiresIn: 3600 }, 
+    (err, token) => {
+      if(err) {
+        return res
+          .status(400)
+          .json({ errors: [{ message: "Unknown error" }] });
+      }
+      res.send(token);
+    });
 };
