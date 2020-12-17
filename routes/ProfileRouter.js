@@ -14,4 +14,3 @@ router.get("/", auth, (req, res) => {
 });
 
 module.exports = router;
-
