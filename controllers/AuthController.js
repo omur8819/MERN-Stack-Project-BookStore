@@ -75,7 +75,7 @@ exports.authLogin = async (req, res) => {
           .status(400)
           .json({ errors: [{ message: "Unknown error" }] });
       }
-      res.send(token);
+      res.status(202).json({ token });
     });
 };
 
