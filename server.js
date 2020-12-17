@@ -9,7 +9,7 @@ connectDB();
 app.use("/api", router);
 
 const host = "http://localhost";
-const port = 5000;
+const port = process.env.port;
 app.listen(port, ()=>{
     console.log(`I am listening on ${host}:${port}`);
 });
