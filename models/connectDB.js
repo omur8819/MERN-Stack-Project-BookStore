@@ -1,12 +1,12 @@
-//mongodb+srv://dbUser:3ABJaS4kvCePUmO5@cluster0.lrddk.mongodb.net/test
-
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URI, { 
             useNewUrlParser: true,
-            useUnifiedTopology: true 
+            useFindAndModify: false,
+            useCreateIndex: true,
+            useUnifiedTopology: true, 
         });
         console.log("Successfully connected to DB")
     } catch (error) {
