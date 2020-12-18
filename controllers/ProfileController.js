@@ -14,4 +14,4 @@ exports.getProfileInfo = async (req, res) => {
 exports.updateProfileInfo = async (req, res) => {
   //TODO: update profile fn.
   res.send("Profile Updated");
-}; 
+};

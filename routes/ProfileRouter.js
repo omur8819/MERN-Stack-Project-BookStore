@@ -3,13 +3,13 @@ const auth = require("../middleware/authMiddleware");
 const router = express.Router();
 const ProfileController = require("../controllers/ProfileController");
 
-//base url: /api/profile
+// base url: /api/profile
 
 /**
-* @route  POST /api/profile
-* @desc Profile endpoint
-* @access Private
-*/ 
+ * @route   GET /api/profile
+ * @desc    Profile endpoint
+ * @access  Private
+ */
 router.get("/", auth, ProfileController.getProfileInfo);
 
 /**
