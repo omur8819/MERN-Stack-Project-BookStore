@@ -43,7 +43,7 @@
 
 .media-card {
   width: 240px;
-  height: 340px;
+  height: 435px;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -241,4 +241,15 @@ input:focus {
   .buttons {
     margin-right: 20px;
   }
+}
+
+.book-list-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 63px;
+  justify-content: center;
+}
+
+.book-list-wrapper > div {
+  margin: 20px;
 }
